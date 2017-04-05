@@ -49,11 +49,12 @@ public class Core94Instance extends CoreInstance
 					getDc().load("blocks", c);
 					configs.add(c);
 					
-					if(c.getConfiguration().contains("inject") && c.getConfiguration().getBoolean("inject"))
+					if(c.getConfiguration().contains(c.getCodeName() + ".inject") && c.getConfiguration().getBoolean(c.getCodeName() + ".inject"))
 					{
 						int id = ids.get(i);
 						add(id, mcKey, (Block) o);
 						ReflectionUtils.setStatic(i, Blocks.class, get(mcKey));
+						System.out.println("Injected Block: " + o.getClass().getSimpleName());
 					}
 				}
 			}
