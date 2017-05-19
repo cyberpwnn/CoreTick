@@ -108,7 +108,7 @@ public class CoreTick extends JavaPlugin
 		File prop = new File("server.properties");
 		TICK.tick = (ms - prop.lastModified()) / 50;
 		System.out.println("Setting Tick to " + TICK.tick);
-		poolManager = new ParallelPoolManager(2);
+		poolManager = new ParallelPoolManager(4);
 	}
 	
 	private void setupTicker()

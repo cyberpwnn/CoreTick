@@ -20,6 +20,7 @@ public class Core102BlockGrass extends BlockGrass implements BlockInjection
 	private boolean inject;
 	private boolean eventSpread;
 	private boolean eventFade;
+	private boolean tick;
 	private int speed;
 	
 	public Core102BlockGrass()
@@ -31,6 +32,11 @@ public class Core102BlockGrass extends BlockGrass implements BlockInjection
 	{
 		if(!world.isClientSide)
 		{
+			if(!tick)
+			{
+				return;
+			}
+			
 			int lightLevel = -1;
 			
 			if(world.getType(blockposition.up()).c() > 2 && (lightLevel = world.getLightLevel(blockposition.up())) < 4)
@@ -103,11 +109,13 @@ public class Core102BlockGrass extends BlockGrass implements BlockInjection
 		cc.set(getCodeName() + ".events.block-spread-event", true, "Toggle the event BlockFadeEvent. \nTurning this off will prevent plugins from seeing this event.");
 		cc.set(getCodeName() + ".events.block-fade-event", true, "Toggle the event BlockFadeEvent. \nTurning this off will prevent plugins from seeing this event.");
 		cc.set(getCodeName() + ".functionality.speed", 1, "Change the growth speed, higher values grow faster, but consume higher tick times\nKeep this value at or above 1.");
+		cc.set(getCodeName() + ".functionality.tick", true, "Should grass blocks be ticked?");
 	}
 	
 	@Override
 	public void onReadConfig()
 	{
+		tick = cc.getBoolean(getCodeName() + ".functionality.tick");
 		inject = cc.getBoolean(getCodeName() + ".inject");
 		eventSpread = cc.getBoolean(getCodeName() + ".events.block-spread-event");
 		eventFade = cc.getBoolean(getCodeName() + ".events.block-fade-event");
